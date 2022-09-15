@@ -1,0 +1,99 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.loginFormBlock {
+    display: grid;
+    border-radius: 20px;
+    box-shadow: 0 5px 34px 12px rgba(34, 60, 80, 0.1);
+    overflow: hidden;
+}
+
+.loginHeader {
+    background-color: #035E7B;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+.loginBody {
+    display: grid;
+    justify-items: center;
+    padding: 40px;
+}
+
+.inputBlock {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    border: 2px solid #465362;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.inputTitle {
+    background-color: #465362;
+    height: 100%;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+}
+
+.inputTitle label {
+    color: #FFF;
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.inputForm {
+    outline: none;
+    border: none;
+    padding: 0 10px;
+}
+
+.inputForm:invalid {
+    color: #d00000;
+}
+
+
+.loginButton {
+    border: none;
+    max-width: 100px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 400;
+    border-radius: 10px;
+    background-color: #008b85;
+    color: #fff;
+    transition: background-color .4s ease-in-out;
+    padding: 5px 10px;
+}
+
+.loginButton:hover {
+    background-color: #002E2C;
+    cursor: pointer;
+}
+
+.loginButton:disabled {
+    background-color: #536462;
+    color: #575757;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #fd8d8d;
+    color: #fff;
+}

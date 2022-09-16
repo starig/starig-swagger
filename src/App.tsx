@@ -1,7 +1,6 @@
 import React from 'react';
 import Auth from "./pages/Auth/Auth";
-import {useAppSelector} from "./redux/hooks";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import UserList from "./pages/UserList/UserList";
 
 function App() {

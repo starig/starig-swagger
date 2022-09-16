@@ -35,7 +35,7 @@ const Header: FC = () => {
         setShowModal(false);
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const args = {

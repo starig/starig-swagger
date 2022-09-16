@@ -65,7 +65,7 @@ const User: FC<UserI> = ({
         });
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         updateUser();
     }

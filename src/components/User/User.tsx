@@ -72,10 +72,12 @@ const User: FC<UserI> = ({
 
     return (
         <form className={styles.user} onSubmit={handleSubmit}>
-            <div>
+            <div className={styles.userColumn}>
+                <h4 className={styles.mobileTitle}>ID:</h4>
                 {id}
             </div>
-            <div className={styles.firstName}>
+            <div className={`${styles.firstName} ${styles.userColumn}`}>
+                <h4 className={styles.mobileTitle}>First name:</h4>
                 {
                     updateMode ? <input className={styles.updateInput}
                                         value={localFirstName}
@@ -85,7 +87,8 @@ const User: FC<UserI> = ({
                                         onChange={(e) => setLocalFirstName(e.target.value)}/> : first_name
                 }
             </div>
-            <div className={styles.username}>
+            <div className={`${styles.username} ${styles.userColumn}`}>
+                <h4 className={styles.mobileTitle}>Username:</h4>
                 {
                     updateMode ? <input className={styles.updateInput}
                                         value={localUsername}
@@ -96,7 +99,8 @@ const User: FC<UserI> = ({
                                         onChange={(e) => setLocalUsername(e.target.value)}/> : username
                 }
             </div>
-            <div className={styles.secondName}>
+            <div className={`${styles.secondName} ${styles.userColumn}`}>
+                <h4 className={styles.mobileTitle}>Last name:</h4>
                 {
                     updateMode ? <input className={styles.updateInput}
                                         value={localLastName}
@@ -106,9 +110,9 @@ const User: FC<UserI> = ({
                                         onChange={(e) => setLocalLastName(e.target.value)}/> : last_name
                 }
             </div>
-            <div>
-                <FiEdit2 className={styles.editButton} onClick={() => setUpdateMode(!updateMode)}/>
-                <AiOutlineDelete className={styles.deleteButton} onClick={() => deleteUser()}/>
+            <div className={styles.userButtons}>
+                <FiEdit2 className={styles.editButton} size={20} onClick={() => setUpdateMode(!updateMode)}/>
+                <AiOutlineDelete className={styles.deleteButton} size={20} onClick={() => deleteUser()}/>
                 <button type='submit' className={styles.updateButton} disabled={!updateMode}>Update</button>
             </div>
         </form>

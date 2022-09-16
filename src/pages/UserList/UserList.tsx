@@ -93,7 +93,7 @@ const UserList: FC = () => {
 
                             </button>
                         </div>
-                        <div>
+                        <div className={styles.userListHeaderItem}>
                             <h4>Name</h4>
                         </div>
                         <div className={styles.sortButtons}>
@@ -106,10 +106,10 @@ const UserList: FC = () => {
 
                             </button>
                         </div>
-                        <div>
+                        <div className={styles.userListHeaderItem}>
                             <h4>Last name</h4>
                         </div>
-                        <div>
+                        <div className={styles.userListHeaderItem}>
                             <h4>Edit/delete</h4>
                         </div>
                     </div>

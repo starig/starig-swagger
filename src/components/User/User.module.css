@@ -23,6 +23,13 @@
     cursor: pointer;
 }
 
+.userButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
 .updateButton {
     background-color: greenyellow;
     border: 0;
@@ -45,4 +52,29 @@
     border-radius: 5px;
     outline: none;
     padding: 5px 10px;
+}
+
+.mobileTitle {
+    display: none;
+}
+
+.userColumn {
+    display: flex;
+}
+
+@media (max-width: 940px) {
+    .user {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-row-gap: 1rem;
+    }
+    .mobileTitle {
+        display: block;
+    }
+}
+
+@media (max-width: 370px) {
+    .userColumn {
+        display: block;
+    }
 }

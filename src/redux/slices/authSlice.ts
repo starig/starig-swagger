@@ -21,7 +21,7 @@ interface AuthSlice {
 
 export const fetchAuth = createAsyncThunk(
     'auth/fetchAuthStatus',
-    async (userInfo: UserInfo, thunkAPI) => {
+    async (userInfo: UserInfo) => {
         const bodyFormData = new FormData();
         bodyFormData.append('username', userInfo.username);
         bodyFormData.append('password', userInfo.password);
@@ -60,7 +60,6 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAuth.fulfilled, (state, action: PayloadAction<TokenInterface>) => {
-            console.log(action.payload)
             state.token = action.payload.token;
             state.isAuthorized = true;
             state.isLoading = false;

@@ -1,0 +1,13 @@
+.user {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 2fr;
+    justify-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.username {
+    font-weight: 700;
+    font-size: 16px;
+}

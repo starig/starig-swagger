@@ -1,4 +1,4 @@
-import {createAsyncThunk, createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import {RootState} from "../store";
 
@@ -10,10 +10,6 @@ export type UserInterface  = {
     is_active: boolean;
     last_login?: string;
     is_superuser: boolean;
-}
-
-interface usersState {
-    users: UserInterface[],
 }
 
 export const usersAdapter = createEntityAdapter<UserInterface>();
@@ -41,19 +37,26 @@ export const fetchUsersList = createAsyncThunk(
 
 export const usersSlice = createSlice({
     name: 'users',
-    initialState: usersAdapter.getInitialState(),
+    initialState: usersAdapter.getInitialState({
+        isLoading: false,
+    }),
     reducers: {
-        setUsers: (state, action: PayloadAction<usersState>) => {
-
-        }
+        updateUsers: usersAdapter.setAll,
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsersList.fulfilled, (state, action) => {
-            usersAdapter.setAll(state, action.payload)
-        })
+            usersAdapter.setAll(state, action.payload);
+            state.isLoading = false;
+        });
+        builder.addCase(fetchUsersList.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchUsersList.rejected, (state) => {
+            state.isLoading = false;
+        });
     }
 })
 
 
-export const { setUsers } = usersSlice.actions;
+export const { updateUsers } = usersSlice.actions;
 export default usersSlice.reducer;

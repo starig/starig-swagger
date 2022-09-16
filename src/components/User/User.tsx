@@ -3,7 +3,7 @@ import styles from './User.module.css';
 import {FiEdit2} from "react-icons/fi";
 import {AiOutlineDelete} from "react-icons/ai";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {deleteUserRequest, fetchUsersList, updateUserInfo} from "../../redux/actions";
+import {deleteUserRequest, updateUserInfo} from "../../redux/actions";
 
 interface UserI {
     id: number;
@@ -47,7 +47,7 @@ const User: FC<UserI> = ({
                 password,
                 is_active
             }
-        }))
+        }));
     }
 
     const deleteUser = () => {
@@ -58,15 +58,23 @@ const User: FC<UserI> = ({
         }
     }
 
+
+
+
     const updateUser = () => {
         updateUserReq().then(() => {
             setUpdateMode(false);
             dispatch(fetchUsersList(token));
-        })
+        });
+    }
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        updateUser();
     }
 
     return (
-        <div className={styles.user}>
+        <form className={styles.user} onSubmit={handleSubmit}>
             <div>
                 {id}
             </div>
@@ -76,6 +84,7 @@ const User: FC<UserI> = ({
                                         value={localFirstName}
                                         type={'text'}
                                         maxLength={30}
+                                        minLength={1}
                                         onChange={(e) => setLocalFirstName(e.target.value)}/> : first_name
                 }
             </div>
@@ -95,6 +104,7 @@ const User: FC<UserI> = ({
                     updateMode ? <input className={styles.updateInput}
                                         value={localLastName}
                                         type={'text'}
+                                        minLength={1}
                                         maxLength={150}
                                         onChange={(e) => setLocalLastName(e.target.value)}/> : last_name
                 }
@@ -102,9 +112,9 @@ const User: FC<UserI> = ({
             <div>
                 <FiEdit2 className={styles.editButton} onClick={() => setUpdateMode(!updateMode)}/>
                 <AiOutlineDelete className={styles.deleteButton} onClick={() => deleteUser()}/>
-                <button className={styles.updateButton} disabled={!updateMode} onClick={updateUser}>Update</button>
+                <button type='submit' className={styles.updateButton} disabled={!updateMode}>Update</button>
             </div>
-        </div>
+        </form>
     )
 }
 

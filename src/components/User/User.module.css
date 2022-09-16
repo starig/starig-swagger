@@ -1,6 +1,6 @@
 .user {
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr 2fr;
+    grid-template-columns: 1fr 2fr 3fr 2fr 1fr;
     justify-items: center;
     border: 1px solid #000;
     border-radius: 5px;
@@ -10,4 +10,14 @@
 .username {
     font-weight: 700;
     font-size: 16px;
+}
+
+.editButton:hover {
+    cursor: pointer;
+    color: #525252;
+}
+
+.deleteButton:hover {
+    color: red;
+    cursor: pointer;
 }

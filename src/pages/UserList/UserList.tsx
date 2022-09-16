@@ -2,18 +2,20 @@ import React, {FC, useEffect, useState} from 'react';
 import styles from './UserList.module.css';
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {useNavigate} from "react-router-dom";
-import {fetchUsersList, updateUsers, usersSelectors} from "../../redux/slices/usersSlice";
+import {updateUsers, usersSelectors} from "../../redux/slices/usersSlice";
 import {useSelector} from "react-redux";
 import {AiOutlineSortAscending, AiOutlineSortDescending} from "react-icons/ai";
 import {BsSortNumericUp, BsSortNumericDown} from "react-icons/bs";
 import Loading from "../../components/Loading/Loading";
 import User from "../../components/User/User";
+import Header from "../../components/Header/Header";
+import {fetchUsersList} from "../../redux/actions";
 
 const UserList: FC = () => {
     const {isAuthorized} = useAppSelector(state => state.auth);
     const token = useAppSelector(state => state.auth.token);
 
-    const [isDescAlpabet, setIsDescAlphabet] = useState<boolean>(true);
+    const [isDescAlphabet, setIsDescAlphabet] = useState<boolean>(true);
     const [isDescId, setIsDescId] = useState<boolean>(false);
 
     const usersList = useSelector(usersSelectors.selectAll);
@@ -23,7 +25,9 @@ const UserList: FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsersList(token))
+        if (token) {
+            dispatch(fetchUsersList(token));
+        }
     }, [])
 
     useEffect(() => {
@@ -32,13 +36,13 @@ const UserList: FC = () => {
 
     /*Sorting alphabeticly*/
     useEffect(() => {
-        if (!isDescAlpabet) {
+        if (!isDescAlphabet) {
             usersList.sort((a, b) => (a.username > b.username) ? 1 : -1)
         } else {
             usersList.sort((a, b) => (b.username > a.username) ? 1 : -1)
         }
         dispatch(updateUsers(usersList));
-    }, [isDescAlpabet]);
+    }, [isDescAlphabet]);
 
     /*Sorting by id */
     useEffect(() => {
@@ -53,9 +57,7 @@ const UserList: FC = () => {
 
     return (
         <div>
-            <header className={styles.header}>
-                <h3>Users list</h3>
-            </header>
+            <Header />
             {
                 isLoading && <Loading/>
             }
@@ -77,16 +79,19 @@ const UserList: FC = () => {
                         </div>
                         <div className={styles.sortButtons}>
                             <h4>Username</h4>
-                            <button className={styles.sortButton} onClick={() => setIsDescAlphabet(!isDescAlpabet)}>
+                            <button className={styles.sortButton} onClick={() => setIsDescAlphabet(!isDescAlphabet)}>
                                 {
-                                    isDescAlpabet ? <AiOutlineSortDescending size={25}/> :
+                                    isDescAlphabet ? <AiOutlineSortDescending size={25}/> :
                                         <AiOutlineSortAscending size={25}/>
                                 }
 
                             </button>
                         </div>
                         <div>
-                            <h4>Second name</h4>
+                            <h4>Last name</h4>
+                        </div>
+                        <div>
+                            <h4>Edit/delete</h4>
                         </div>
                     </div>
                     {

@@ -1,8 +1,9 @@
 import React, {FC, useEffect} from 'react';
 import styles from './Auth.module.css';
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {fetchAuth, setPassword, setUsername} from "../../redux/slices/authSlice";
+import {setPassword, setUsername} from "../../redux/slices/authSlice";
 import {useNavigate} from "react-router-dom";
+import {fetchAuth} from "../../redux/actions";
 
 const Auth: FC = () => {
     const dispatch = useAppDispatch();
@@ -58,7 +59,7 @@ const Auth: FC = () => {
                         </div>
                         <input type="text"
                                className={styles.inputForm}
-                               minLength={3}
+                               minLength={1}
                                required
                                value={username}
                                onChange={(e) => changeUsername(e.target.value)}/>
@@ -69,7 +70,7 @@ const Auth: FC = () => {
                         </div>
                         <input type="password"
                                className={styles.inputForm}
-                               minLength={3}
+                               minLength={1}
                                required
                                value={password}
                                onChange={(e) => changePassword(e.target.value)}/>

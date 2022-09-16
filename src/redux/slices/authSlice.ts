@@ -1,40 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import axios from "axios";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {fetchAuth} from "../actions";
+import {AuthSlice, TokenInterface} from "../types";
 
-
-interface UserInfo {
-    username: string;
-    password: string;
-}
-
-interface TokenInterface {
-    token: string;
-}
-
-interface AuthSlice {
-    isAuthorized: boolean;
-    token: string;
-    isLoading: boolean;
-    isError: boolean;
-    userInfo: UserInfo;
-}
-
-export const fetchAuth = createAsyncThunk(
-    'auth/fetchAuthStatus',
-    async (userInfo: UserInfo) => {
-        const bodyFormData = new FormData();
-        bodyFormData.append('username', userInfo.username);
-        bodyFormData.append('password', userInfo.password);
-        const response = await axios({
-            method: 'post',
-            url: 'http://emphasoft-test-assignment.herokuapp.com/api-token-auth/',
-            data: bodyFormData,
-        });
-        return response.data;
-
-
-    }
-)
 
 const initialState: AuthSlice = {
     isAuthorized: false,

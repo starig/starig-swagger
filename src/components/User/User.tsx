@@ -3,7 +3,7 @@ import styles from './User.module.css';
 import {FiEdit2} from "react-icons/fi";
 import {AiOutlineDelete} from "react-icons/ai";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {deleteUserRequest, updateUserInfo} from "../../redux/actions";
+import {deleteUserRequest, fetchUsersList, updateUserInfo} from "../../redux/actions";
 
 interface UserI {
     id: number;
@@ -57,9 +57,6 @@ const User: FC<UserI> = ({
             })
         }
     }
-
-
-
 
     const updateUser = () => {
         updateUserReq().then(() => {

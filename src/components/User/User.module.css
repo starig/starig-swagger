@@ -5,6 +5,7 @@
     border: 1px solid #000;
     border-radius: 5px;
     margin: 10px 0;
+    padding: 10px;
 }
 
 .username {
@@ -20,4 +21,27 @@
 .deleteButton:hover {
     color: red;
     cursor: pointer;
+}
+
+.updateButton {
+    background-color: greenyellow;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.updateButton:hover {
+    background-color: #89c236;
+    cursor: pointer;
+}
+
+.updateButton:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.updateInput {
+    border: 1px solid #000;
+    border-radius: 5px;
+    outline: none;
 }

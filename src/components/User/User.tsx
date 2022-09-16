@@ -1,29 +1,53 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import styles from './User.module.css';
 import {FiEdit2} from "react-icons/fi";
 import {AiOutlineDelete} from "react-icons/ai";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {deleteUserRequest, fetchUsersList} from "../../redux/actions";
+import {deleteUserRequest, fetchUsersList, updateUserInfo} from "../../redux/actions";
 
 interface UserI {
     id: number;
     first_name?: string;
     last_name?: string;
     username: string;
+    password?: string;
+    is_active?: boolean;
 }
 
 const User: FC<UserI> = ({
                              id,
                              first_name,
                              last_name,
-                             username
+                             username,
+                             password,
+                             is_active
                          }) => {
     const dispatch = useAppDispatch();
+    const [updateMode, setUpdateMode] = useState<boolean>(false);
 
-    const { token } = useAppSelector(state => state.auth);
+    const [localUsername, setLocalUsername] = useState<string>(username);
+    const [localFirstName, setLocalFirstName] = useState<string | undefined>(first_name);
+    const [localLastName, setLocalLastName] = useState<string | undefined>(last_name);
+
+
+    const {token} = useAppSelector(state => state.auth);
 
     const deleteUserReq = async () => {
         await dispatch(deleteUserRequest({token, id}));
+    }
+
+    const updateUserReq = async () => {
+        await dispatch(updateUserInfo({
+            token,
+            user: {
+                id: id,
+                username: localUsername,
+                first_name: localFirstName,
+                last_name: localLastName,
+                password,
+                is_active
+            }
+        }))
     }
 
     const deleteUser = () => {
@@ -34,23 +58,51 @@ const User: FC<UserI> = ({
         }
     }
 
+    const updateUser = () => {
+        updateUserReq().then(() => {
+            setUpdateMode(false);
+            dispatch(fetchUsersList(token));
+        })
+    }
+
     return (
         <div className={styles.user}>
             <div>
                 {id}
             </div>
             <div className={styles.firstName}>
-                {first_name}
+                {
+                    updateMode ? <input className={styles.updateInput}
+                                        value={localFirstName}
+                                        type={'text'}
+                                        maxLength={30}
+                                        onChange={(e) => setLocalFirstName(e.target.value)}/> : first_name
+                }
             </div>
             <div className={styles.username}>
-                {username}
+                {
+                    updateMode ? <input className={styles.updateInput}
+                                        value={localUsername}
+                                        pattern='^[\w.@+-]+$'
+                                        minLength={1}
+                                        maxLength={150}
+                                        required
+                                        onChange={(e) => setLocalUsername(e.target.value)}/> : username
+                }
             </div>
             <div className={styles.secondName}>
-                {last_name}
+                {
+                    updateMode ? <input className={styles.updateInput}
+                                        value={localLastName}
+                                        type={'text'}
+                                        maxLength={150}
+                                        onChange={(e) => setLocalLastName(e.target.value)}/> : last_name
+                }
             </div>
             <div>
-                <FiEdit2 className={styles.editButton}/>
+                <FiEdit2 className={styles.editButton} onClick={() => setUpdateMode(!updateMode)}/>
                 <AiOutlineDelete className={styles.deleteButton} onClick={() => deleteUser()}/>
+                <button className={styles.updateButton} disabled={!updateMode} onClick={updateUser}>Update</button>
             </div>
         </div>
     )

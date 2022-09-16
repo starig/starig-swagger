@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {DeleteReqUserInterface, PostReqArgInterface, UserInfo} from "./types";
+import {DeleteReqUserInterface, PatchReqArgInterface, PostReqArgInterface, UserInfo} from "./types";
 
 export const fetchAuth = createAsyncThunk(
     'auth/fetchAuthStatus',
@@ -64,6 +64,32 @@ export const deleteUserRequest = createAsyncThunk(
     }
 );
 
+export const updateUserInfo = createAsyncThunk(
+    'users/updateUserInfoStatus',
+    async (arg: PatchReqArgInterface) => {
+        const { token, user } = arg;
+        const { id, username, first_name, last_name, password, is_active } = user;
+        try {
+            await axios({
+                method: 'patch',
+                url: usersAPI_url + `${id}/`,
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+                data: {
+                    username,
+                    first_name,
+                    last_name,
+                    password,
+                    is_active
+                }
+            })
+        } catch (e) {
+            console.error(e)
+        }
+    }
+);
+
 export const fetchUsersList = createAsyncThunk(
     'users/fetchUsersListStatus',
     async (token: string) => {
@@ -81,3 +107,4 @@ export const fetchUsersList = createAsyncThunk(
         }
     }
 );
+

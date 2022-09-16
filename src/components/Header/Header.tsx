@@ -4,6 +4,7 @@ import {FiUserPlus} from "react-icons/fi";
 import {AiOutlineCloseCircle, AiOutlineQuestionCircle} from "react-icons/ai";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {fetchNewUser, fetchUsersList} from "../../redux/actions";
+import {setSearchValue} from "../../redux/slices/usersSlice";
 
 
 const Header: FC = () => {
@@ -20,6 +21,11 @@ const Header: FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     const { token } = useAppSelector(state => state.auth);
+    const { searchValue } = useAppSelector(state => state.users);
+
+    const changeInput = (value: string) => {
+        dispatch(setSearchValue(value));
+    }
 
     const dataRefresh = () => {
         setUsername('');
@@ -57,6 +63,11 @@ const Header: FC = () => {
     return (
         <header className={styles.header}>
             <h3>Users list</h3>
+            <input className={styles.searchInput}
+                   type='text'
+                   value={searchValue}
+                   placeholder={'Search user'}
+                   onChange={(e) => changeInput(e.target.value)} />
             <button className={styles.createButton} onClick={() => setShowModal(true)}>
                 Create new user <FiUserPlus />
             </button>

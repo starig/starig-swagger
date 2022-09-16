@@ -34,9 +34,23 @@ export type NewUserType = {
     is_active: boolean;
 }
 
+export type UpdateUserType = {
+    id: number;
+    username: string;
+    first_name?: string;
+    last_name?: string;
+    password?: string;
+    is_active?: boolean;
+}
+
 export interface PostReqArgInterface {
     token: string;
     user: NewUserType;
+}
+
+export interface PatchReqArgInterface {
+    token: string;
+    user: UpdateUserType;
 }
 
 export interface DeleteReqUserInterface {

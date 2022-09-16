@@ -1,4 +1,4 @@
-import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 import {UserInterface} from "../types";
 import {fetchUsersList} from "../actions";
@@ -8,16 +8,17 @@ export const usersAdapter = createEntityAdapter<UserInterface>();
 export const usersSelectors = usersAdapter.getSelectors<RootState>((state) => state.users);
 
 
-
-
-
 export const usersSlice = createSlice({
     name: 'users',
     initialState: usersAdapter.getInitialState({
         isLoading: false,
+        searchValue: '',
     }),
     reducers: {
-        updateUsers: usersAdapter.setAll,
+        setUsers: usersAdapter.setAll,
+        setSearchValue: (state, action: PayloadAction<string>) => {
+            state.searchValue = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsersList.fulfilled, (state, action) => {
@@ -34,5 +35,5 @@ export const usersSlice = createSlice({
 })
 
 
-export const { updateUsers } = usersSlice.actions;
+export const { setUsers, setSearchValue } = usersSlice.actions;
 export default usersSlice.reducer;

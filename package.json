@@ -1,6 +1,7 @@
 {
   "name": "starig-swagger",
   "version": "0.1.0",
+  "homepage": "https://starig.github.io/starig-swagger/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
@@ -23,6 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -50,6 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
     "eslint": "^8.23.1",
-    "eslint-plugin-react": "^7.31.8"
+    "eslint-plugin-react": "^7.31.8",
+    "gh-pages": "^4.0.0"
   }
 }
